@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".About"
+    android:gravity="center_vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đây là ứng dụng do nhóm 11 thực hiện, dưới sự hướng dẫn của thầy Mai Văn Mạnh - giảng viên lý thuyết và thầy Trần Đại Nhân - giảng viên thực hành. Nhóm 11 chúng em xin cảm ơn hai thầy đã tận tình chỉ dạy, giúp chúng em có đủ kiến thức để hoàn thành ứng dụng này!"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+    </TextView>
+
+</LinearLayout>
