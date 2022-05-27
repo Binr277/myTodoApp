@@ -59,10 +59,6 @@ public class ChangePassword extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"Confirm Password Is Not Correct",Toast.LENGTH_SHORT).show();
                 }
-                else if(!newPassword.equals(newConfirm))
-                {
-                    Toast.makeText(getApplicationContext(),"Confirm Password Is Not Correct",Toast.LENGTH_SHORT).show();
-                }
                 else{
                     firebaseUser.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
