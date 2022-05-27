@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -75,6 +76,7 @@ public class NoteActivity extends AppCompatActivity{
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +90,17 @@ public class NoteActivity extends AppCompatActivity{
 
         pref = getSharedPreferences("NoteActivity", MODE_PRIVATE);
         editor = pref.edit();
+
+        SharedPreferences settingpref = getSharedPreferences("Settings", MODE_PRIVATE);
+
+        boolean isNightMode = settingpref.getBoolean("nightMode", false);
+
+        if(isNightMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         mcreatenotesfab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +263,7 @@ public class NoteActivity extends AppCompatActivity{
                 startActivity(new Intent(NoteActivity.this,About.class));
                 break;
             case R.id.settings:
+                startActivity(new Intent(NoteActivity.this,Settings.class));
                 break;
             case R.id.search:
                 break;
