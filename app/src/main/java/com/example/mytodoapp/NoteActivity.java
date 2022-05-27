@@ -1,7 +1,6 @@
 package com.example.mytodoapp;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -16,17 +15,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -35,24 +29,16 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 import java.util.Random;
 
@@ -60,7 +46,6 @@ public class NoteActivity extends AppCompatActivity{
 
     FloatingActionButton mcreatenotesfab;
     private FirebaseAuth firebaseAuth;
-
 
     RecyclerView mrecyclerview;
     StaggeredGridLayoutManager staggeredGridLayoutManager;
@@ -71,7 +56,6 @@ public class NoteActivity extends AppCompatActivity{
     FirebaseFirestore firebaseFirestore;
 
     FirestoreRecyclerAdapter<FirebaseModel,NoteViewHolder> noteAdapter;
-    FirestoreRecyclerAdapter<FirebaseModel,NoteViewHolder> noteAdapterOld;
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -91,16 +75,6 @@ public class NoteActivity extends AppCompatActivity{
         pref = getSharedPreferences("NoteActivity", MODE_PRIVATE);
         editor = pref.edit();
 
-        SharedPreferences settingpref = getSharedPreferences("Settings", MODE_PRIVATE);
-
-        boolean isNightMode = settingpref.getBoolean("nightMode", false);
-
-        if(isNightMode){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-        else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
 
         mcreatenotesfab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -313,10 +287,6 @@ public class NoteActivity extends AppCompatActivity{
 
     public class StaggeredGridLayoutManagerWraper extends androidx.recyclerview.widget.StaggeredGridLayoutManager{
 
-        public StaggeredGridLayoutManagerWraper(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
-        }
-
         public StaggeredGridLayoutManagerWraper(int spanCount, int orientation) {
             super(spanCount, orientation);
         }
@@ -329,16 +299,8 @@ public class NoteActivity extends AppCompatActivity{
     public class LinearLayoutManagerWrapper extends LinearLayoutManager {
 
 
-        public LinearLayoutManagerWrapper(Context context) {
-            super(context);
-        }
-
         public LinearLayoutManagerWrapper(Context context, int orientation, boolean reverseLayout) {
             super(context, orientation, reverseLayout);
-        }
-
-        public LinearLayoutManagerWrapper(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
         }
 
         @Override

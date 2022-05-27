@@ -59,6 +59,7 @@ public class Settings extends AppCompatActivity {
                 editor.apply();
             }
         });
+
     }
 
 }
