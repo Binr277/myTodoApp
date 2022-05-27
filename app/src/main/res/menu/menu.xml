@@ -4,8 +4,14 @@
     <item android:id="@+id/logout"
         android:title="Logout">
     </item>
+    <item android:id="@+id/changepassword"
+        android:title="Change Password">
+    </item>
     <item android:id="@+id/switchview"
         android:title="Switch View">
+    </item>
+    <item android:id="@+id/settings"
+        android:title="Setting">
     </item>
     <item android:id="@+id/about"
         android:title="About">

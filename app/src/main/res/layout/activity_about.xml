@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đây là ứng dụng do nhóm 11 thực hiện, dưới sự hướng dẫn của thầy Mai Văn Mạnh - giảng viên lý thuyết và thầy Trần Đại Nhân - giảng viên thực hành. Nhóm 11 chúng em xin cảm ơn hai thầy đã tận tình chỉ dạy, giúp chúng em có đủ kiến thức để hoàn thành ứng dụng này!"
+        android:text="Đây là ứng dụng do nhóm 46 thực hiện, dưới sự hướng dẫn của thầy Mai Văn Mạnh - giảng viên lý thuyết và thầy Trần Đại Nhân - giảng viên thực hành. Nhóm 46 chúng em xin cảm ơn hai thầy đã tận tình chỉ dạy, giúp chúng em có đủ kiến thức để hoàn thành ứng dụng này!"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:gravity="center"

@@ -83,8 +83,6 @@ public class Register extends AppCompatActivity {
                             {
                                 Toast.makeText(getApplicationContext(),"Failed To Register",Toast.LENGTH_SHORT).show();
                             }
-
-
                         }
                     });
                 }

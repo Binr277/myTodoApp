@@ -88,7 +88,6 @@ public class NoteActivity extends AppCompatActivity{
 
         pref = getSharedPreferences("NoteActivity", MODE_PRIVATE);
         editor = pref.edit();
-        editor.putInt("currentViewMode", 0);
 
         mcreatenotesfab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,6 +233,7 @@ public class NoteActivity extends AppCompatActivity{
                 startActivity(new Intent(NoteActivity.this,MainActivity.class));
                 break;
             case R.id.switchview:
+                currentViewMode = pref.getInt("currentViewMode", 0);
                 if(currentViewMode == 0){
                     editor.putInt("currentViewMode", 1);
                     editor.apply();
@@ -249,8 +249,12 @@ public class NoteActivity extends AppCompatActivity{
             case R.id.about:
                 startActivity(new Intent(NoteActivity.this,About.class));
                 break;
+            case R.id.settings:
+                break;
             case R.id.search:
                 break;
+            case R.id.changepassword:
+                startActivity(new Intent(NoteActivity.this,ChangePassword.class));
         }
         return super.onOptionsItemSelected(item);
     }
