@@ -101,7 +101,7 @@ public class EditNote extends AppCompatActivity {
         switch (item.getItemId())
         {
             case android.R.id.home:
-                onBackPressed();
+                startActivity(new Intent(EditNote.this,NoteActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

@@ -39,7 +39,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class NoteActivity extends AppCompatActivity{
@@ -60,6 +62,9 @@ public class NoteActivity extends AppCompatActivity{
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
+    SharedPreferences pwpref;
+    SharedPreferences.Editor pweditor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +80,8 @@ public class NoteActivity extends AppCompatActivity{
         pref = getSharedPreferences("NoteActivity", MODE_PRIVATE);
         editor = pref.edit();
 
+        pwpref = getSharedPreferences("Password", MODE_PRIVATE);
+        pweditor = pwpref.edit();
 
         mcreatenotesfab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,16 +110,27 @@ public class NoteActivity extends AppCompatActivity{
 
                 String docId=noteAdapter.getSnapshots().getSnapshot(i).getId();
 
+                String pass = pwpref.getString(docId, "");
+
+
                 noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        Intent intent=new Intent(v.getContext(),EditNote.class);
-                        intent.putExtra("title",firebasemodel.getTitle());
-                        intent.putExtra("content",firebasemodel.getContent());
-                        intent.putExtra("noteId",docId);
-
-                        v.getContext().startActivity(intent);
+                        if(!pass.isEmpty()){
+                            Intent intent=new Intent(v.getContext(),EnterPassword.class);
+                            intent.putExtra("title",firebasemodel.getTitle());
+                            intent.putExtra("content",firebasemodel.getContent());
+                            intent.putExtra("noteId",docId);
+                            intent.putExtra("mode",0);
+                            v.getContext().startActivity(intent);
+                        }
+                        else{
+                            Intent intent=new Intent(v.getContext(),EditNote.class);
+                            intent.putExtra("title",firebasemodel.getTitle());
+                            intent.putExtra("content",firebasemodel.getContent());
+                            intent.putExtra("noteId",docId);
+                            v.getContext().startActivity(intent);
+                        }
 
                     }
                 });
@@ -128,23 +146,87 @@ public class NoteActivity extends AppCompatActivity{
                         popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                DocumentReference documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
-                                documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(v.getContext(),"This note is deleted",Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(v.getContext(),"Failed To Delete",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                if(!pass.isEmpty()){
+                                    Intent intent=new Intent(v.getContext(),EnterPassword.class);
+                                    intent.putExtra("title",firebasemodel.getTitle());
+                                    intent.putExtra("content",firebasemodel.getContent());
+                                    intent.putExtra("noteId",docId);
+                                    intent.putExtra("mode",1);
+                                    v.getContext().startActivity(intent);
+                                }
+                                else{
+                                    DocumentReference documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                                    documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            String title=firebasemodel.getTitle();
+                                            String content=firebasemodel.getContent();
+                                            DocumentReference documentReferenceForBin=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("recycleBin").document();
+                                            Map<String ,Object> note= new HashMap<>();
+                                            note.put("title",title);
+                                            note.put("content",content);
+                                            documentReferenceForBin.set(note);
+                                            Toast.makeText(v.getContext(),"This note is deleted",Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(v.getContext(),"Failed To Delete",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+
 
                                 return false;
                             }
                         });
 
+                        popupMenu.getMenu().add(pass.isEmpty()?"Enable Password":"Disable Password").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                if(pass.isEmpty()){
+                                    Intent intent=new Intent(NoteActivity.this,EnablePassword.class);
+                                    intent.putExtra("noteId",docId);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Intent intent=new Intent(NoteActivity.this,DisablePassword.class);
+                                    intent.putExtra("noteId",docId);
+                                    intent.putExtra("change", false);
+                                    startActivity(intent);
+                                }
+
+                                return false;
+                            }
+                        });
+                        if(!pass.isEmpty()){
+                            popupMenu.getMenu().add("Change Password").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    Intent intent=new Intent(NoteActivity.this,DisablePassword.class);
+                                    intent.putExtra("noteId",docId);
+                                    intent.putExtra("change", true);
+                                    startActivity(intent);
+                                    return false;
+                                }
+                            });
+                        }
+                        popupMenu.getMenu().add("Share").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                Toast.makeText(v.getContext(),"Share",Toast.LENGTH_SHORT).show();
+                                String title = firebasemodel.getTitle();
+                                String content = firebasemodel.getContent();
+                                Intent sendIntent  = new Intent();
+                                sendIntent.setAction(Intent.ACTION_SEND);
+                                sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                                sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+                                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                                sendIntent.setType("text/plain");
+                                startActivity(shareIntent);
+                                return false;
+                            }
+                        });
                         popupMenu.show();
                     }
                 });
@@ -189,22 +271,6 @@ public class NoteActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu,menu);
-        MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Toast.makeText(NoteActivity.this,newText,Toast.LENGTH_SHORT).show();
-
-                return false;
-            }
-        });
         return true;
     }
 
@@ -239,10 +305,10 @@ public class NoteActivity extends AppCompatActivity{
             case R.id.settings:
                 startActivity(new Intent(NoteActivity.this,Settings.class));
                 break;
-            case R.id.search:
-                break;
             case R.id.changepassword:
                 startActivity(new Intent(NoteActivity.this,ChangePassword.class));
+            case R.id.recyclebin:
+                startActivity(new Intent(NoteActivity.this,RecycleBin.class));
         }
         return super.onOptionsItemSelected(item);
     }

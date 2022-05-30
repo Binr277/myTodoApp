@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyTodoApp">
         <activity
+            android:name=".EnterPassword"
+            android:exported="false" />
+        <activity
+            android:name=".DisablePassword"
+            android:exported="false" />
+        <activity
+            android:name=".EnablePassword"
+            android:exported="false" />
+        <activity
+            android:name=".RecycleBin"
+            android:exported="false" />
+        <activity
             android:name=".Settings"
             android:exported="false" />
         <activity
@@ -44,7 +56,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>

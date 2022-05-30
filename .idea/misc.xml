@@ -3,7 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_add_note.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_change_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_disable_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_edit_note.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_enable_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_enter_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_forgot_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_note.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_recycle_bin.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/layout/note_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Cuoiky/myTodoApp/app/src/main/res/menu/menu.xml" value="0.36102564102564105" />
+        <entry key="..\:/Phattrienungdung/Giuaky/myTodoApp/app/src/main/res/layout/activity_add_note.xml" value="0.36666666666666664" />
         <entry key="..\:/Phattrienungdung/Giuaky/myTodoApp/app/src/main/res/layout/activity_change_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Phattrienungdung/Giuaky/myTodoApp/app/src/main/res/layout/activity_edit_note.xml" value="0.36666666666666664" />
         <entry key="..\:/Phattrienungdung/Giuaky/myTodoApp/app/src/main/res/layout/activity_forgot_password.xml" value="0.36666666666666664" />
         <entry key="..\:/Phattrienungdung/Giuaky/myTodoApp/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Phattrienungdung/Giuaky/myTodoApp/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
