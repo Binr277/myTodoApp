@@ -90,6 +90,19 @@ public class EnterPassword extends AppCompatActivity {
                             }
                         });
                     }
+                    else if(mode==2){
+                        Toast.makeText(EnterPassword.this, "Share", Toast.LENGTH_SHORT).show();
+                        String title=getIntent().getStringExtra("title");
+                        String content=getIntent().getStringExtra("content");
+                        Intent sendIntent  = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+                        Intent shareIntent = Intent.createChooser(sendIntent, null);
+                        sendIntent.setType("text/plain");
+                        startActivity(new Intent(EnterPassword.this,NoteActivity.class));
+                        startActivity(shareIntent);
+                    }
                 }
                 else{
                     Toast.makeText(EnterPassword.this, "Wrong Password", Toast.LENGTH_SHORT).show();

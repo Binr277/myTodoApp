@@ -214,16 +214,27 @@ public class NoteActivity extends AppCompatActivity{
                         popupMenu.getMenu().add("Share").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-                                Toast.makeText(v.getContext(),"Share",Toast.LENGTH_SHORT).show();
-                                String title = firebasemodel.getTitle();
-                                String content = firebasemodel.getContent();
-                                Intent sendIntent  = new Intent();
-                                sendIntent.setAction(Intent.ACTION_SEND);
-                                sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
-                                sendIntent.putExtra(Intent.EXTRA_TEXT, content);
-                                Intent shareIntent = Intent.createChooser(sendIntent, null);
-                                sendIntent.setType("text/plain");
-                                startActivity(shareIntent);
+                                if(!pass.isEmpty()){
+                                    Intent intent=new Intent(v.getContext(),EnterPassword.class);
+                                    intent.putExtra("title",firebasemodel.getTitle());
+                                    intent.putExtra("content",firebasemodel.getContent());
+                                    intent.putExtra("noteId",docId);
+                                    intent.putExtra("mode",2);
+                                    v.getContext().startActivity(intent);
+                                }
+                                else{
+                                    Toast.makeText(v.getContext(),"Share",Toast.LENGTH_SHORT).show();
+                                    String title = firebasemodel.getTitle();
+                                    String content = firebasemodel.getContent();
+                                    Intent sendIntent  = new Intent();
+                                    sendIntent.setAction(Intent.ACTION_SEND);
+                                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, title);
+                                    sendIntent.putExtra(Intent.EXTRA_TEXT, content);
+                                    Intent shareIntent = Intent.createChooser(sendIntent, null);
+                                    sendIntent.setType("text/plain");
+                                    startActivity(shareIntent);
+                                }
+
                                 return false;
                             }
                         });
