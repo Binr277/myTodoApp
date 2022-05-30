@@ -318,8 +318,10 @@ public class NoteActivity extends AppCompatActivity{
                 break;
             case R.id.changepassword:
                 startActivity(new Intent(NoteActivity.this,ChangePassword.class));
+                break;
             case R.id.recyclebin:
                 startActivity(new Intent(NoteActivity.this,RecycleBin.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
